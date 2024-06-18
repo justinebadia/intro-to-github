@@ -1,0 +1,18 @@
+# This is a basic workflow to help you get started with Actions
+
+name: test_dispatch
+
+# Controls when the workflow will run
+on:
+  repository_dispatch:
+    types: [test-dispatch]
+
+jobs:
+  generate-test-dispatch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          echo "coucou"
+ 
