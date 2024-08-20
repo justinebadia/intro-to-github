@@ -8,12 +8,26 @@ on:
     types: [test-dispatch]
 
 jobs:
-  test:
+  generate-docs:
+    name: Generate Docs
     runs-on: ubuntu-latest
     steps:
+      - name: Create new file
+        run: |
+          echo "This is a newly generated file." > new_file.txt
+
       - name: check for changes
-        run: echo "changes_detected=true" >> "$GITHUB_ENV"
-    
+        run: |
+          git add new_file.txt
+          if git diff-index --quiet HEAD --; then
+            echo "changes_detected=false" >> "$GITHUB_ENV"
+          else
+            git commit -m "Added new file: new_file.txt on $(date +"%Y-%m-%d")"
+            echo "changes_detected=true" >> "$GITHUB_ENV"
+          fi
+
       - name: push changes to main
-        if: ${{ env.changes_detected }} == 'true'
-        run: echo "coucou"
+        if: ${{ env.changes_detected == 'true' }}
+        run: git push origin main
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
