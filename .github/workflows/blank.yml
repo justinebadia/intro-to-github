@@ -34,5 +34,5 @@ jobs:
       - name: push changes to main
         if: ${{ env.changes_detected == 'true' }}
         run: git push origin main
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
