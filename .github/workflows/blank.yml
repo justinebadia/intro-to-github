@@ -8,11 +8,12 @@ on:
     types: [test-dispatch]
 
 jobs:
-  generate-test-dispatch:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
-      - run: |
-          echo "coucou"
- 
+      - name: check for changes
+        run: echo "changes_detected=true" >> "$GITHUB_ENV"
+    
+      - name: push changes to main
+        if: ${{ env.changes_detected }} == 'true'
+        run: echo "coucou"
