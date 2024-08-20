@@ -12,6 +12,9 @@ jobs:
     name: Generate Docs
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        
       - name: Create new file
         run: |
           echo "This is a newly generated file." > new_file.txt
